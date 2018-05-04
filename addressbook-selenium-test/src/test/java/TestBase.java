@@ -3,6 +3,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -13,8 +14,10 @@ public class TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setUp() throws Exception {
-      driver = new FirefoxDriver();
+      driver = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
       driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        openAddressbook();
+        login();
     }
 
     public void returnToGroupsPage() {
@@ -57,6 +60,10 @@ public class TestBase {
       driver.get("http://localhost/addressbook/");
     }
 
+    public void selectGroup() {
+        driver.findElement(By.name("selected[]")).click();
+    }
+
     @AfterClass(alwaysRun = true)
     public void tearDown() throws Exception {
       driver.quit();
@@ -79,5 +86,9 @@ public class TestBase {
       } catch (NoAlertPresentException e) {
         return false;
       }
+    }
+
+    public void deleteGroup() {
+        driver.findElement(By.name("delete")).click();
     }
 }
