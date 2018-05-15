@@ -18,7 +18,7 @@ public class FirstClass {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
-  @Test
+  @Test(enabled = false)
   public void searchWebDriverInChrome() throws Exception {
     driver.get("https://www.google.co.il/search?q=webdriver&oq=webdriver&aqs=chrome.0.69i59j69i61j69i65l2j35i39j0.3996j0j8&sourceid=chrome&ie=UTF-8");
     driver.findElement(By.id("lst-ib")).click();
@@ -26,6 +26,9 @@ public class FirstClass {
     driver.findElement(By.id("lst-ib")).clear();
     driver.findElement(By.id("lst-ib")).sendKeys("webdriver");
   }
+
+  @Test
+
 
   @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {
