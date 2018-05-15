@@ -10,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+    private  NavigationHelper navigationHelper ;
     protected WebDriver driver;
     private GroupHelper groupHelper;
 
@@ -17,12 +18,9 @@ public class ApplicationManager {
         driver = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         groupHelper = new GroupHelper(driver);
+        navigationHelper = new NavigationHelper(driver);
         openAddressbook("http://localhost/addressbook/");
         login("admin", "secret");
-    }
-
-    public void goToGroupsPage() {
-      driver.findElement(By.linkText("groups")).click();
     }
 
     public void login(String user, String pwd) {
@@ -80,5 +78,9 @@ public class ApplicationManager {
 
     public GroupHelper getGroupHelper() {
         return groupHelper;
+    }
+
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
     }
 }
